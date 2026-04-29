@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>The $25K Problem — @DuncanBurnsMA</title>
+<meta property="og:title" content="The $25,000 Problem">
+<meta property="og:description" content="Massachusetts' $25K homebuyer subsidy inflates prices in the communities it claims to help. The sellers get the raise. The buyers get the debt. The taxpayers get the bill.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://duncanburns2013-dot.github.io/The-25K-Problem/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The $25,000 Problem">
+<meta name="twitter:description" content="Massachusetts' $25K homebuyer subsidy inflates prices in the communities it claims to help. The sellers get the raise. The buyers get the debt. The taxpayers get the bill.">
+<meta name="twitter:creator" content="@DuncanBurnsMA">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#edf1f7;--paper:#fff;--ink:#0f172a;--sub:#475569;--mute:#94a3b8;--rule:#cbd5e1;--rose:#e11d48;--violet:#7c3aed;--sky:#0284c7;--emerald:#059669;--amber:#d97706;--indigo:#3730a3;--slate:#64748b}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--ink);font-weight:400}
+.hero{background:linear-gradient(135deg,#1e1b4b 0%,#312e81 40%,#1e3a5f 100%);color:#fff;padding:100px 32px 80px;position:relative}
+.hero::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:60px;background:var(--bg)}
+.hero-inner{max-width:800px;margin:0 auto}
+.hero .handle{font-size:.85rem;font-weight:600;letter-spacing:.1em;color:#a5b4fc;margin-bottom:20px}
+.hero h1{font-family:'Instrument Serif',serif;font-size:clamp(3rem,7vw,5.5rem);line-height:1.05;margin-bottom:20px;font-weight:400}
+.hero h1 em{font-style:normal;color:#fb7185}
+.hero .deck{font-size:1.15rem;color:rgba(255,255,255,.75);line-height:1.7;max-width:560px;font-weight:300}
+.content{max-width:800px;margin:0 auto;padding:0 24px}
+p{font-size:1.05rem;line-height:1.85;color:var(--sub);margin-bottom:20px}
+p strong{color:var(--ink);font-weight:600}
+a{color:var(--sky);text-decoration:underline dotted;text-underline-offset:3px}
+.break{padding:70px 0 40px}
+.break-sm{padding:40px 0 20px}
+.eyebrow{font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.18em;color:var(--rose);margin-bottom:8px}
+h2{font-family:'Instrument Serif',serif;font-size:clamp(1.8rem,4vw,2.8rem);color:var(--ink);line-height:1.2;margin-bottom:16px;font-weight:400}
+h3{font-family:'Instrument Serif',serif;font-size:1.5rem;color:var(--ink);margin-bottom:12px;font-weight:400}
+.bignum{font-family:'Instrument Serif',serif;font-size:clamp(3rem,8vw,5rem);line-height:1;margin:20px 0}
+.bignum.rose{color:var(--rose)}.bignum.violet{color:var(--violet)}.bignum.amber{color:var(--amber)}
+.pull{font-family:'Instrument Serif',serif;font-size:1.6rem;color:var(--ink);line-height:1.5;border-left:4px solid var(--rose);padding:8px 0 8px 24px;margin:36px 0}
+
+/* CARDS */
+.flow{display:flex;gap:14px;flex-wrap:wrap;margin:24px 0}
+.fcard{flex:1;min-width:140px;background:var(--paper);border:1.5px solid var(--rule);border-radius:14px;padding:18px;transition:transform .2s,box-shadow .25s}
+.fcard:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(15,23,42,.08)}
+.fcard .fk{font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:var(--mute);margin-bottom:6px}
+.fcard .fv{font-family:'Instrument Serif',serif;font-size:2rem;line-height:1.1}
+.fcard .fn{font-size:.78rem;color:var(--mute);margin-top:6px}
+
+/* CHARTS */
+.viz{background:var(--paper);border:1.5px solid var(--rule);border-radius:16px;padding:28px;margin:32px 0;transition:box-shadow .3s}
+.viz:hover{box-shadow:0 12px 40px rgba(15,23,42,.07)}
+.viz-head{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:10px;margin-bottom:18px}
+.viz-title{font-weight:700;font-size:.95rem;color:var(--ink)}
+.viz-sub{font-size:.78rem;color:var(--mute)}
+.viz-toggle{display:flex;gap:4px}
+.viz-toggle button{padding:5px 14px;border:1.5px solid var(--rule);border-radius:20px;background:var(--bg);font-family:inherit;font-size:.75rem;font-weight:600;color:var(--sub);cursor:pointer;transition:all .15s}
+.viz-toggle button.on{background:var(--indigo);color:#fff;border-color:var(--indigo)}
+.viz-toggle button:hover:not(.on){border-color:var(--violet);color:var(--violet)}
+.viz-area{position:relative;height:340px}
+.viz-area canvas{width:100%!important;height:100%!important}
+
+/* IMPACT BARS */
+.hbar{margin:8px 0}
+.hbar-row{display:flex;align-items:center;gap:10px;margin-bottom:7px;cursor:default;transition:transform .15s}
+.hbar-row:hover{transform:translateX(6px)}
+.hbar-lbl{width:70px;font-size:.9rem;font-weight:700;text-align:right;color:var(--ink);flex-shrink:0}
+.hbar-track{flex:1;height:42px;background:var(--bg);border-radius:10px;overflow:hidden}
+.hbar-fill{height:100%;border-radius:10px;display:flex;align-items:center;padding:0 14px;font-size:.73rem;font-weight:700;color:#fff;transition:width 1s cubic-bezier(.22,.68,0,1.2)}
+.hbar-fill[data-w]{width:0}
+.hbar-val{width:50px;font-size:.85rem;font-weight:800;flex-shrink:0}
+
+/* COMPARISON */
+.compare{display:grid;grid-template-columns:1fr auto 1fr;gap:0;margin:36px 0;align-items:stretch}
+.cbox{background:var(--paper);border:1.5px solid var(--rule);border-radius:16px;padding:28px}
+.cbox.hot{border-color:var(--rose);border-width:2.5px;background:linear-gradient(135deg,#fff5f7,#fff)}
+.cbox .clabel{font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:var(--mute);margin-bottom:6px}
+.cbox .ctitle{font-weight:700;font-size:1rem;color:var(--ink);margin-bottom:20px}
+.cbox .crow{display:flex;justify-content:space-between;align-items:baseline;padding:10px 0;border-bottom:1px solid var(--bg)}
+.cbox .crow:last-child{border:none}
+.cbox .crow .ck{font-size:.88rem;color:var(--sub)}
+.cbox .crow .cv{font-family:'Instrument Serif',serif;font-size:1.5rem}
+.cvs{display:flex;align-items:center;justify-content:center;padding:0 10px;font-family:'Instrument Serif',serif;font-size:1.8rem;color:var(--mute)}
+
+/* TOWNS */
+.towns{display:flex;gap:14px;overflow-x:auto;padding:4px 0 16px;margin:24px 0;-webkit-overflow-scrolling:touch;scroll-snap-type:x mandatory}
+.towns::-webkit-scrollbar{height:6px}
+.towns::-webkit-scrollbar-thumb{background:var(--rule);border-radius:3px}
+.tcard{min-width:170px;background:var(--paper);border:1.5px solid var(--rule);border-radius:14px;padding:18px;text-align:center;flex-shrink:0;scroll-snap-align:start;transition:transform .2s,box-shadow .25s}
+.tcard:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(15,23,42,.08)}
+.tcard .tn{font-weight:700;font-size:.88rem;margin-bottom:4px}
+.tcard .tp{font-family:'Instrument Serif',serif;font-size:1.6rem;color:var(--indigo)}
+.tcard .tc{font-size:.75rem;font-weight:700;color:var(--rose);margin:4px 0}
+.tcard .tm{font-size:.7rem;color:var(--mute)}
+
+/* DEBT TABLE */
+.dtable{width:100%;border-collapse:separate;border-spacing:0;margin:24px 0;font-size:.9rem}
+.dtable th{background:var(--indigo);color:#fff;padding:12px 16px;text-align:left;font-weight:600;font-size:.75rem;text-transform:uppercase;letter-spacing:.06em}
+.dtable th:first-child{border-radius:12px 0 0 0}.dtable th:last-child{border-radius:0 12px 0 0}
+.dtable td{padding:12px 16px;border-bottom:1px solid var(--bg);background:var(--paper);color:var(--sub)}
+.dtable tr:last-child td:first-child{border-radius:0 0 0 12px}.dtable tr:last-child td:last-child{border-radius:0 0 12px 0}
+.dtable td:first-child{font-weight:700;color:var(--ink)}
+.dtable .highlight{background:#fef2f2;color:var(--rose);font-weight:700}
+
+/* EQUATION */
+.equation{display:flex;align-items:center;justify-content:center;gap:14px;margin:36px 0;flex-wrap:wrap}
+.eq-block{background:var(--paper);border:1.5px solid var(--rule);border-radius:14px;padding:16px 22px;text-align:center;transition:transform .2s}
+.eq-block:hover{transform:scale(1.04)}
+.eq-block.danger{border-color:var(--rose);background:linear-gradient(135deg,#fff5f7,#fff)}
+.eq-block .eq-v{font-weight:700;font-size:1.05rem}.eq-block .eq-n{font-size:.78rem;color:var(--mute)}
+.eq-sym{font-family:'Instrument Serif',serif;font-size:2rem;color:var(--mute)}
+
+/* SOLUTIONS */
+.sol{border-left:4px solid var(--emerald);padding:16px 0 16px 24px;margin:16px 0}
+.sol h4{font-size:1rem;font-weight:700;color:var(--ink);margin-bottom:4px}
+.sol p{font-size:.9rem;margin-bottom:0;color:var(--sub)}
+
+/* ALERT BOX */
+.alert{background:linear-gradient(135deg,#fef2f2,#fff);border:2px solid var(--rose);border-radius:16px;padding:28px;margin:32px 0}
+.alert .alert-title{font-weight:800;color:var(--rose);font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+
+footer{background:linear-gradient(135deg,#1e1b4b,#312e81);color:rgba(255,255,255,.65);padding:48px 24px;text-align:center;margin-top:60px}
+footer p{font-size:.82rem;color:rgba(255,255,255,.5);margin-bottom:6px}
+footer a{color:#a5b4fc}footer strong{color:#fff}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s,transform .7s}.reveal.in{opacity:1;transform:none}
+@media(max-width:700px){.compare{grid-template-columns:1fr;gap:12px}.cvs{padding:4px 0;font-size:1.2rem}.flow{flex-direction:column}.viz-area{height:260px}.hero{padding:60px 20px 60px}.equation{flex-direction:column}}
+</style>
+</head>
+<body>
+<header class="hero"><div class="hero-inner">
+
+<h1>The <em>$25,000</em> Problem</h1>
+<p class="deck">Massachusetts just gave first-time homebuyers $25K in interest-free money. The data shows it will inflate prices in the exact communities it&rsquo;s supposed to help &mdash; and saddle the poorest buyers with debt for the privilege.</p>
+</div></header>
+
+<div class="content">
+
+<div class="break reveal"><div class="eyebrow">The Program</div><h2>Free money! (Terms and conditions apply.)</h2></div>
+
+<p class="reveal">Up to <strong>$25,000 at 0% interest</strong>, deferred repayment, for first-time homebuyers earning up to 135% of area median income. Sounds amazing until you realize: it&rsquo;s a <strong>lien on your house</strong>. You owe it back when you sell or refinance. And someone &mdash; taxpayers &mdash; is funding the $25 million pool.</p>
+
+<div class="flow reveal">
+<div class="fcard"><div class="fk">Amount</div><div class="fv" style="color:var(--rose)">$25K</div><div class="fn">0% interest, deferred</div></div>
+<div class="fcard"><div class="fk">Income Limit</div><div class="fv" style="color:var(--indigo)">$205K</div><div class="fn">135% AMI (E. Mass)</div></div>
+<div class="fcard"><div class="fk">Assisted Since &rsquo;23</div><div class="fv" style="color:var(--amber)">5,900+</div><div class="fn">4 of 5 used DPA</div></div>
+<div class="fcard"><div class="fk">Program Cost</div><div class="fv" style="color:var(--slate)">$25M</div><div class="fn">Taxpayer funded</div></div>
+</div>
+
+<div class="pull reveal">The sellers get the raise. The buyers get the debt. The taxpayers get the bill.</div>
+
+<!-- IMPACT -->
+<div class="break reveal"><div class="eyebrow">Asymmetric Impact</div><h2>$25K is a different animal at different price points</h2></div>
+
+<p class="reveal">At a $300K home, the state just handed you <strong>167%</strong> of the FHA down payment &mdash; zero out of pocket. At a million-dollar home? It covers half. The demand boost carpet-bombs the cheapest markets.</p>
+
+<div class="viz reveal">
+<div class="viz-head"><div><div class="viz-title">$25K as % of a 5% FHA down payment</div><div class="viz-sub">Hover for details</div></div></div>
+<div class="hbar">
+<div class="hbar-row"><div class="hbar-lbl">$300K</div><div class="hbar-track"><div class="hbar-fill" data-w="100" style="background:var(--rose)" title="Covers full $15K DP + $10K toward closing costs">167% &mdash; zero out of pocket</div></div><div class="hbar-val" style="color:var(--rose)">167%</div></div>
+<div class="hbar-row"><div class="hbar-lbl">$400K</div><div class="hbar-track"><div class="hbar-fill" data-w="75" style="background:var(--violet)" title="Covers full $20K DP + $5K surplus">125%</div></div><div class="hbar-val" style="color:var(--violet)">125%</div></div>
+<div class="hbar-row"><div class="hbar-lbl">$500K</div><div class="hbar-track"><div class="hbar-fill" data-w="60" style="background:var(--amber)" title="Exactly covers the $25K FHA down payment">100% &mdash; exact match</div></div><div class="hbar-val" style="color:var(--amber)">100%</div></div>
+<div class="hbar-row"><div class="hbar-lbl">$600K</div><div class="hbar-track"><div class="hbar-fill" data-w="50" style="background:var(--sky)" title="Covers 83%, buyer still needs $5K">83%</div></div><div class="hbar-val" style="color:var(--sky)">83%</div></div>
+<div class="hbar-row"><div class="hbar-lbl">$800K</div><div class="hbar-track"><div class="hbar-fill" data-w="37" style="background:var(--emerald)" title="Covers 63%, buyer needs $15K more">63%</div></div><div class="hbar-val" style="color:var(--emerald)">63%</div></div>
+<div class="hbar-row"><div class="hbar-lbl">$1M+</div><div class="hbar-track"><div class="hbar-fill" data-w="30" style="background:var(--slate)" title="Covers half. Barely moves the needle.">50%</div></div><div class="hbar-val" style="color:var(--slate)">50%</div></div>
+</div></div>
+
+<!-- DEBT BURDEN — NEW SECTION -->
+<div class="break reveal"><div class="eyebrow">The Debt Trap</div><h2>Who actually pays for this?</h2></div>
+
+<p class="reveal">&ldquo;Interest-free&rdquo; sounds free. It&rsquo;s not. The $25K is a <strong>deferred second mortgage</strong> &mdash; a lien on your property. You owe it back when you sell or refinance. And here&rsquo;s the part nobody talks about:</p>
+
+<p class="reveal">When <em>every</em> buyer at the $300&ndash;500K level has an extra $25K, none of them gain an advantage. They all bid higher against each other. The home that would have sold for $300K now sells for $320K. The buyer &ldquo;won&rdquo; the house &mdash; but owes $25K more in total debt on a home that&rsquo;s only worth more because of the subsidy.</p>
+
+<div class="alert reveal">
+<div class="alert-title">The math on a $350K Gateway City home</div>
+<table class="dtable">
+<thead><tr><th>Scenario</th><th>Without $25K</th><th>With $25K</th></tr></thead>
+<tbody>
+<tr><td>Sale price</td><td>$350,000</td><td>$370,000 *</td></tr>
+<tr><td>Down payment (own $)</td><td>$17,500 (5%)</td><td>$0</td></tr>
+<tr><td>First mortgage</td><td>$332,500</td><td>$351,500</td></tr>
+<tr><td>Second mortgage (DPA)</td><td>$0</td><td>$25,000</td></tr>
+<tr><td>Total debt</td><td>$332,500</td><td class="highlight">$376,500</td></tr>
+<tr><td>Monthly payment (6.5%)</td><td>$2,102</td><td>$2,222</td></tr>
+<tr><td>Equity at purchase</td><td>$17,500</td><td class="highlight">-$6,500</td></tr>
+</tbody>
+</table>
+<p style="font-size:.82rem;color:var(--mute);margin-top:12px;margin-bottom:0">* Conservative estimate &mdash; price inflation from subsidy-fueled demand. Buyer starts underwater: owing more than the home was worth before the subsidy inflated it.</p>
+</div>
+
+<p class="reveal">The buyer put zero down. They owe $376K on a home that was worth $350K before the program existed. They&rsquo;re <strong>immediately underwater</strong> &mdash; and the $25K &ldquo;gift&rdquo; is a lien the state will collect when they sell.</p>
+
+<p class="reveal">Meanwhile, the seller walked away with $370K instead of $350K. <strong>The subsidy transferred $20K of taxpayer money directly to the seller.</strong> The buyer got debt. The taxpayer got the bill.</p>
+
+<div class="pull reveal">Every buyer has $25K more. No buyer gains an advantage. Prices go up. Debt goes up. Sellers cash out. Taxpayers foot the bill.</div>
+
+<!-- GATEWAY CITIES -->
+<div class="break reveal"><div class="eyebrow">Gateway Cities</div><h2>The &ldquo;affordable&rdquo; cities aren&rsquo;t affordable anymore</h2></div>
+
+<div class="viz reveal">
+<div class="viz-head">
+<div><div class="viz-title">Entry-level price growth since 2019</div><div class="viz-sub">Zillow ZHVI bottom tier &bull; Use filters to explore</div></div>
+<div class="viz-toggle" id="gw-toggle">
+<button class="on" data-v="all">All 26</button>
+<button data-v="top">Doubled+</button>
+<button data-v="essex">Essex Co.</button>
+</div>
+</div>
+<div class="viz-area" style="height:460px"><canvas id="ch-gw"></canvas></div>
+</div>
+
+<div class="bignum rose reveal">+107%</div>
+<p class="reveal" style="margin-top:-8px">Springfield&rsquo;s entry-level homes <strong>doubled</strong>. These are the communities the state keeps calling &ldquo;affordable.&rdquo;</p>
+
+<!-- THE GAP -->
+<div class="break reveal"><div class="eyebrow">The Gap</div><h2>Where subsidies concentrate, the bottom inflates fastest</h2></div>
+
+<div class="compare reveal">
+<div class="cbox hot">
+<div class="clabel">Where subsidies concentrate</div><div class="ctitle">Gateway Cities</div>
+<div class="crow"><span class="ck">Entry-level</span><span class="cv" style="color:var(--rose)">+74%</span></div>
+<div class="crow"><span class="ck">Top-tier</span><span class="cv" style="color:var(--indigo)">+57%</span></div>
+<div class="crow"><span class="ck">Gap</span><span class="cv" style="color:var(--rose);font-family:Outfit;font-size:1.1rem;font-weight:800">17 POINTS</span></div>
+</div>
+<div class="cvs">vs</div>
+<div class="cbox">
+<div class="clabel">Less subsidy exposure</div><div class="ctitle">North Shore / Newburyport</div>
+<div class="crow"><span class="ck">Entry-level</span><span class="cv" style="color:var(--emerald)">+67%</span></div>
+<div class="crow"><span class="ck">Top-tier</span><span class="cv" style="color:var(--indigo)">+62%</span></div>
+<div class="crow"><span class="ck">Gap</span><span class="cv" style="color:var(--emerald);font-family:Outfit;font-size:1.1rem;font-weight:800">5 POINTS</span></div>
+</div>
+</div>
+
+<div class="viz reveal">
+<div class="viz-head"><div><div class="viz-title">Entry-level vs. top-tier growth by city</div><div class="viz-sub">Bigger gap = more distortion from subsidized demand</div></div></div>
+<div class="viz-area" style="height:380px"><canvas id="ch-spread"></canvas></div>
+</div>
+
+<!-- LOCAL DATA -->
+<div class="break reveal"><div class="eyebrow">MLS Data</div><h2>Transaction data tells the same story</h2></div>
+
+<div class="flow reveal">
+<div class="fcard"><div class="fk">MA Avg Price</div><div class="fv" style="color:var(--rose)">$836K</div><div class="fn">+108% since 2014</div></div>
+<div class="fcard"><div class="fk">Volume</div><div class="fv" style="color:var(--indigo)">38,149</div><div class="fn">&darr;29% since 2020</div></div>
+<div class="fcard"><div class="fk">Days on Market</div><div class="fv" style="color:var(--amber)">55</div><div class="fn">Was 117 in 2014</div></div>
+<div class="fcard"><div class="fk">Supply</div><div class="fv" style="color:var(--emerald)">1.6 mo</div><div class="fn">Balanced = 4&ndash;6</div></div>
+</div>
+
+<div class="viz reveal">
+<div class="viz-head">
+<div><div class="viz-title">Price trajectory &mdash; 2014 to 2026</div><div class="viz-sub">MLS PIN single-family &bull; Click filters to isolate</div></div>
+<div class="viz-toggle" id="mls-toggle">
+<button class="on" data-v="all">All</button>
+<button data-v="nbpt">Newburyport</button>
+<button data-v="essex">Essex Co.</button>
+<button data-v="ma">MA</button>
+</div>
+</div>
+<div class="viz-area"><canvas id="ch-mls"></canvas></div>
+</div>
+
+<div class="break-sm reveal"><h3>Greater Newburyport</h3><p style="font-size:.85rem;color:var(--mute)">Scroll &rarr;</p></div>
+<div class="towns reveal">
+<div class="tcard"><div class="tn">Newburyport</div><div class="tp">$1.10M</div><div class="tc">+135%</div><div class="tm">$554/sf &middot; 36 DOM</div></div>
+<div class="tcard"><div class="tn">Newbury</div><div class="tp">$958K</div><div class="tc">+103%</div><div class="tm">$395/sf &middot; 52 DOM</div></div>
+<div class="tcard"><div class="tn">West Newbury</div><div class="tp">$922K</div><div class="tc">+82%</div><div class="tm">$344/sf &middot; 57 DOM</div></div>
+<div class="tcard"><div class="tn">Rowley</div><div class="tp">$745K</div><div class="tc">+61%</div><div class="tm">$378/sf &middot; 27 DOM</div></div>
+<div class="tcard"><div class="tn">Amesbury</div><div class="tp">$642K</div><div class="tc">+113%</div><div class="tm">$359/sf &middot; 38 DOM</div></div>
+<div class="tcard"><div class="tn">Salisbury</div><div class="tp">$569K</div><div class="tc">+53%</div><div class="tm">$391/sf &middot; 61 DOM</div></div>
+</div>
+
+<!-- SUPPLY -->
+<div class="break reveal"><div class="eyebrow">Supply Crisis</div><h2>You can&rsquo;t subsidize your way out of a shortage</h2></div>
+
+<div class="bignum rose reveal">1.6</div>
+<p class="reveal" style="margin-top:-8px;font-size:1.15rem"><strong>Months of inventory.</strong> A balanced market needs 4&ndash;6. We&rsquo;re running on fumes.</p>
+
+<div class="equation reveal">
+<div class="eq-block"><div class="eq-v" style="color:var(--rose)">5,900+ subsidized buyers</div><div class="eq-n">since 2023</div></div>
+<div class="eq-sym">+</div>
+<div class="eq-block"><div class="eq-v" style="color:var(--amber)">No inventory</div><div class="eq-n">&frac13; of healthy supply</div></div>
+<div class="eq-sym">=</div>
+<div class="eq-block danger"><div class="eq-v" style="color:var(--rose)">Higher prices</div><div class="eq-n">Seller pockets the subsidy</div></div>
+</div>
+
+<div class="viz reveal">
+<div class="viz-head"><div><div class="viz-title">Months of supply &mdash; MA statewide</div><div class="viz-sub">Dashed = balanced market threshold</div></div></div>
+<div class="viz-area" style="height:220px"><canvas id="ch-supply"></canvas></div>
+</div>
+
+<!-- SOLUTION -->
+<div class="break reveal"><div class="eyebrow">Solutions</div><h2>Build houses. That&rsquo;s the policy.</h2></div>
+
+<div class="sol reveal"><h4>Reform zoning</h4><p>Fund MBTA Communities Act compliance. Let towns build multi-family where it&rsquo;s currently illegal.</p></div>
+<div class="sol reveal"><h4>Fund infrastructure</h4><p>Water, sewer, roads for new housing developments in Gateway Cities.</p></div>
+<div class="sol reveal"><h4>Subsidize construction, not consumption</h4><p>Build 200 starter homes instead of inflating the price of 5,900 existing ones.</p></div>
+
+<p class="reveal" style="font-size:1.1rem;margin-top:32px"><strong>Subsidizing demand in a supply-constrained market doesn&rsquo;t create homeowners. It creates debt, inflates prices, and transfers taxpayer money to sellers.</strong></p>
+<p class="reveal">The data is public. Anyone can verify it.</p>
+
+</div>
+
+<footer><div style="max-width:600px;margin:0 auto">
+<p><strong>Data Sources</strong></p>
+<p>Zillow ZHVI &mdash; <a href="https://www.zillow.com/research/data/">zillow.com/research/data</a></p>
+<p>MLS PIN &middot; MassHousing &middot; <a href="https://www.mass.gov">mass.gov</a></p>
+<p style="margin-top:16px">Analysis by <a href="https://x.com/DuncanBurnsMA">@DuncanBurnsMA</a> &middot; April 2026</p>
+</div></footer>
+
+<script>
+(function(){
+var RS='#e11d48',VI='#7c3aed',SK='#0284c7',EM='#059669',AM='#d97706',IN='#3730a3',SL='#64748b',M='#bbb';
+Chart.defaults.color='#777';Chart.defaults.borderColor='#dde3ed';Chart.defaults.font.family="'Outfit',sans-serif";
+var ttStyle={backgroundColor:'#fff',titleColor:'#0f172a',bodyColor:'#475569',borderColor:'#cbd5e1',borderWidth:1,cornerRadius:10,padding:14};
+
+// Scroll reveals
+var obs=new IntersectionObserver(function(e){e.forEach(function(en){if(en.isIntersecting){en.target.classList.add('in');en.target.querySelectorAll('.hbar-fill[data-w]').forEach(function(b){b.style.width=b.getAttribute('data-w')+'%'})}})},{threshold:.15});
+document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el)});
+
+// Gateway chart
+var gwAll=[['Springfield',107],['Fitchburg',107],['New Bedford',103],['Lawrence',95],['Fall River',93],['Worcester',92],['Leominster',91],['Pittsfield',88],['Barnstable',83],['Taunton',82],['Chicopee',79],['Holyoke',78],['Haverhill',76],['Attleboro',76],['Westfield',76],['Methuen',74],['Brockton',74],['Lowell',72],['Lynn',63],['Salem',55],['Peabody',54],['Everett',48],['Revere',45],['Malden',42],['Chelsea',39],['Quincy',37]].sort(function(a,b){return b[1]-a[1]});
+var gwChart;
+function drawGW(data){
+if(gwChart)gwChart.destroy();
+gwChart=new Chart(document.getElementById('ch-gw'),{type:'bar',data:{labels:data.map(function(d){return d[0]}),datasets:[{data:data.map(function(d){return d[1]}),backgroundColor:data.map(function(d,i){var cols=['#e11d48','#dc2626','#f43f5e','#c026d3','#a855f7','#7c3aed','#6366f1','#4f46e5','#3b82f6','#2563eb','#0284c7','#0891b2','#0d9488','#059669','#10b981','#16a34a','#65a30d','#ca8a04','#d97706','#ea580c','#f97316','#ef4444','#be185d','#9333ea','#4338ca','#1d4ed8'];return cols[i%cols.length]}),borderRadius:5,barThickness:16}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,animation:{duration:500},plugins:{legend:{display:false},tooltip:Object.assign({},ttStyle,{callbacks:{label:function(c){return'+'+c.parsed.x+'% since Jan 2019'}}})},scales:{x:{ticks:{callback:function(v){return'+'+v+'%'}},grid:{color:'#e8edf5'}},y:{grid:{display:false},ticks:{color:'#1e293b',font:{size:12,weight:'600'}}}}}});
+}
+drawGW(gwAll);
+document.getElementById('gw-toggle').addEventListener('click',function(e){if(e.target.tagName!=='BUTTON')return;this.querySelectorAll('button').forEach(function(b){b.classList.remove('on')});e.target.classList.add('on');var v=e.target.getAttribute('data-v');if(v==='top')drawGW(gwAll.filter(function(d){return d[1]>=90}));else if(v==='essex')drawGW(gwAll.filter(function(d){return['Haverhill','Lawrence','Methuen','Peabody','Salem','Lynn'].indexOf(d[0])>=0}));else drawGW(gwAll);});
+
+// Spread
+var spC=['Springfield','Fitchburg','New Bedford','Lawrence','Worcester','Chicopee','Holyoke','Taunton','Brockton','Lowell','Haverhill','Newburyport','Amesbury','Beverly','Gloucester','Andover','Salisbury'];
+var spB=[107,107,103,95,92,79,78,82,74,72,76,73,75,64,72,57,68];
+var spT=[70,76,70,73,69,56,54,62,57,58,62,70,62,57,67,63,51];
+new Chart(document.getElementById('ch-spread'),{type:'bar',data:{labels:spC,datasets:[{label:'Entry-level',data:spB,backgroundColor:RS+'cc',borderRadius:4},{label:'Top-tier',data:spT,backgroundColor:IN+'55',borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'top',labels:{boxWidth:10,padding:16,color:'#334155',font:{size:12}}},tooltip:Object.assign({},ttStyle,{callbacks:{label:function(c){return c.dataset.label+': +'+c.parsed.y+'%'}}})},scales:{y:{ticks:{callback:function(v){return'+'+v+'%'},color:'#475569'},grid:{color:'#e8edf5'}},x:{grid:{display:false},ticks:{color:'#475569',font:{size:10},maxRotation:50}}}}});
+
+// MLS
+var Y=["'14","'15","'16","'17","'18","'19","'20","'21","'22","'23","'24","'25","'26"];
+var mlsD={nbpt:[469,461,568,622,669,715,756,929,877,1110,1019,1171,1104],essex:[437,430,439,472,515,507,558,666,688,758,844,858,837],ma:[401,421,418,446,469,487,521,615,677,701,763,804,836]};
+var mlsChart;
+function drawMLS(s){
+if(mlsChart)mlsChart.destroy();
+var ds=[];
+if(s==='all'||s==='nbpt')ds.push({label:'Newburyport',data:mlsD.nbpt,borderColor:AM,borderWidth:3,tension:.35,pointRadius:5,pointHoverRadius:9,pointBackgroundColor:AM,pointBorderColor:'#fff',pointBorderWidth:2});
+if(s==='all'||s==='essex')ds.push({label:'Essex County',data:mlsD.essex,borderColor:EM,borderWidth:3,tension:.35,pointRadius:5,pointHoverRadius:9,pointBackgroundColor:EM,pointBorderColor:'#fff',pointBorderWidth:2});
+if(s==='all'||s==='ma')ds.push({label:'MA Statewide',data:mlsD.ma,borderColor:IN,borderWidth:3,tension:.35,pointRadius:5,pointHoverRadius:9,pointBackgroundColor:IN,pointBorderColor:'#fff',pointBorderWidth:2});
+mlsChart=new Chart(document.getElementById('ch-mls'),{type:'line',data:{labels:Y,datasets:ds},options:{responsive:true,maintainAspectRatio:false,animation:{duration:500},interaction:{mode:'index',intersect:false},plugins:{legend:{position:'top',labels:{boxWidth:10,padding:16,color:'#1e293b',font:{size:12}}},tooltip:Object.assign({},ttStyle,{callbacks:{label:function(c){return c.dataset.label+': $'+c.parsed.y+'K'}}})},scales:{y:{ticks:{callback:function(v){return'$'+v+'K'},color:'#475569'},grid:{color:'#e8edf5'}},x:{grid:{display:false},ticks:{color:'#475569'}}}}});
+}
+drawMLS('all');
+document.getElementById('mls-toggle').addEventListener('click',function(e){if(e.target.tagName!=='BUTTON')return;this.querySelectorAll('button').forEach(function(b){b.classList.remove('on')});e.target.classList.add('on');drawMLS(e.target.getAttribute('data-v'));});
+
+// Supply
+new Chart(document.getElementById('ch-supply'),{type:'line',data:{labels:Y,datasets:[{label:'Months Supply',data:[4.19,3.80,3.01,2.29,2.04,2.33,1.58,0.67,0.62,0.82,1.24,1.52,1.61],borderColor:RS,backgroundColor:RS+'12',borderWidth:3,tension:.35,fill:true,pointRadius:4,pointHoverRadius:7,pointBackgroundColor:RS,pointBorderColor:'#fff',pointBorderWidth:2},{label:'Balanced (4 mo)',data:[4,4,4,4,4,4,4,4,4,4,4,4,4],borderColor:M,borderWidth:1.5,borderDash:[6,4],pointRadius:0}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'top',labels:{boxWidth:10,padding:14,color:'#334155',font:{size:11}}},tooltip:ttStyle},scales:{y:{min:0,max:5,ticks:{color:'#475569'},grid:{color:'#e8edf5'}},x:{grid:{display:false},ticks:{color:'#475569'}}}}});
+})();
+</script>
+</body>
+</html>
